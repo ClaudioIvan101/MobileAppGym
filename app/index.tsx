@@ -1,4 +1,5 @@
 import ComboRol from '@/components/ComboBox';
+import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
@@ -16,8 +17,9 @@ export default function HomeScreen() {
 
    const ingresar = () => {
       if(rol == 'admin') {
-       console.log("hola ", user, ": Ingregaste como administrador")
+       router.replace('/(admin)/Home')
       }else {
+        router.replace('/(socio)/Home')
         console.log("Hola", user, ": Ingresaste como socio")
       }
    }
