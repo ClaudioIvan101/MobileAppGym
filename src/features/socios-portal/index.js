@@ -1,0 +1,13 @@
+export * from './components';
+export * from './hooks/useSocioDashboard';
+export * from './hooks/useSocioMembresia';
+export * from './hooks/useSocioClases';
+export * from './hooks/useSocioAsistencias';
+export * from './hooks/useSocioPerfil';
+export * from './services/socioPortalService';
+export { SocioHome } from './pages/SocioHome';
+export { SocioMembresia } from './pages/SocioMembresia';
+export { SocioClases } from './pages/SocioClases';
+export { SocioAsistencias } from './pages/SocioAsistencias';
+export { SocioPerfil } from './pages/SocioPerfil';
+export { default } from './pages/SocioHome';

@@ -1,0 +1,9 @@
+export { SociosFiltersBar } from './SociosFiltersBar';
+export { SociosTable } from './SociosTable';
+export { RegisterPaymentModal } from './RegisterPaymentModal';
+export { AssignPlanModal } from './AssignPlanModal';
+export { SocioProfileHeader } from './SocioProfileHeader';
+export { TabMemberships } from './TabMemberships';
+export { TabPaymentsAccount } from './TabPaymentsAccount';
+export { TabAttendanceHistory } from './TabAttendanceHistory';
+export { TabMedicalNotes } from './TabMedicalNotes';

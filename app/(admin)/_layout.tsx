@@ -1,28 +1,18 @@
-import { Tabs } from 'expo-router';
+import { Stack } from 'expo-router';
 
-export default function TabLayout() {
+export default function AdminLayout() {
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
-      <Tabs.Screen
-        name="home"
-        options={{
-          title: 'Home',
-        }}
-      />
-
-      <Tabs.Screen
-        name="socios"
-        options={{
-          title: 'Socios',
-        }}
-      />
-
-      <Tabs.Screen
-        name="perfil"
-        options={{
-          title: 'Perfil',
-        }}
-      />
-    </Tabs>
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" />
+      <Stack.Screen name="Socios" />
+      <Stack.Screen name="SocioDetail" />
+      <Stack.Screen name="CheckIn" />
+      <Stack.Screen name="Kiosk" />
+      <Stack.Screen name="PaseDiario" />
+      <Stack.Screen name="Clases" />
+      <Stack.Screen name="Planes" />
+      <Stack.Screen name="Caja" />
+      <Stack.Screen name="Reportes" />
+    </Stack>
   );
 }

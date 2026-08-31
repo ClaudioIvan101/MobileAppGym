@@ -7,7 +7,7 @@ type ComboRolProps = {
     setRol: Dispatch<SetStateAction<string>>;
   };
   
-export default function ComboRol({ rol, setRol}: ComboRolProps) {
+export default function ComboBox({ rol, setRol}: ComboRolProps) {
   return (
     <View style={styles.combo}>
     <Text style={styles.label}>Rol</Text>
