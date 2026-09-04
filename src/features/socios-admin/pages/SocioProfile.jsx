@@ -39,28 +39,36 @@ export const SocioProfile = ({
 
   const {
     socio,
-    isLoading,
-    refetch,
-    addNotaStaff,
+    agregarNota,
     isAddingNota,
+    registrarPago,
+    isRegisteringPago,
+    asignarPlan,
+    isAssigningPlan,
   } = useSocioProfile360(socioId);
 
   const handleConfirmPayment = (payload) => {
-    setToastMessage(`Cobro de ${payload.monto} completado con éxito.`);
-    setIsPaymentModalOpen(false);
-    setTimeout(() => setToastMessage(null), 3000);
-    refetch();
+    registrarPago(payload, {
+      onSuccess: () => {
+        setToastMessage(`Cobro de ${payload.monto} completado con éxito.`);
+        setIsPaymentModalOpen(false);
+        setTimeout(() => setToastMessage(null), 3000);
+      },
+    });
   };
 
   const handleConfirmPlan = (payload) => {
-    setToastMessage(`Plan "${payload.planNombre}" asignado correctamente.`);
-    setIsPlanModalOpen(false);
-    setTimeout(() => setToastMessage(null), 3000);
-    refetch();
+    asignarPlan(payload, {
+      onSuccess: () => {
+        setToastMessage(`Plan "${payload.planNombre}" asignado correctamente.`);
+        setIsPlanModalOpen(false);
+        setTimeout(() => setToastMessage(null), 3000);
+      },
+    });
   };
 
   const handleAddNota = (payload, options) => {
-    addNotaStaff(payload, {
+    agregarNota(payload, {
       onSuccess: () => {
         setToastMessage('Nota interna agregada con éxito.');
         options?.onSuccess?.();
@@ -158,6 +166,7 @@ export const SocioProfile = ({
         onClose={() => setIsPaymentModalOpen(false)}
         socio={socio}
         onConfirmPayment={handleConfirmPayment}
+        isLoading={isRegisteringPago}
       />
 
       <AssignPlanModal
@@ -165,6 +174,7 @@ export const SocioProfile = ({
         onClose={() => setIsPlanModalOpen(false)}
         socio={socio}
         onConfirmPlan={handleConfirmPlan}
+        isLoading={isAssigningPlan}
       />
     </SafeAreaView>
   );

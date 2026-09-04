@@ -1,4 +1,4 @@
-import apiClient from '../../../api/client';
+import { apiClient } from '../../../api/client';
 
 /**
  * Servicio de API para el Portal de Socios, Perfil, Membresías, Clases y Asistencias

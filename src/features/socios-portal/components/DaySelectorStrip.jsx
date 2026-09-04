@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { tokens } from '../../../theme/tokens';
 import { Calendar } from 'lucide-react-native';
@@ -10,22 +10,42 @@ export const DaySelectorStrip = ({
   selectedDate,
   onSelectDate,
 }) => {
-  const weekDays = [
-    { dayName: 'LUN', dayNumber: '31', fullDate: '2026-08-31', isToday: true },
-    { dayName: 'MAR', dayNumber: '01', fullDate: '2026-09-01', isToday: false },
-    { dayName: 'MIÉ', dayNumber: '02', fullDate: '2026-09-02', isToday: false },
-    { dayName: 'JUE', dayNumber: '03', fullDate: '2026-09-03', isToday: false },
-    { dayName: 'VIE', dayNumber: '04', fullDate: '2026-09-04', isToday: false },
-    { dayName: 'SÁB', dayNumber: '05', fullDate: '2026-09-05', isToday: false },
-    { dayName: 'DOM', dayNumber: '06', fullDate: '2026-09-06', isToday: false },
-  ];
+  const weekDays = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const mondayOffset = (today.getDay() + 6) % 7;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - mondayOffset);
+    const dayNames = ['DOM', 'LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB'];
+
+    return Array.from({ length: 7 }, (_, index) => {
+      const date = new Date(monday);
+      date.setDate(monday.getDate() + index);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+
+      return {
+        dayName: dayNames[date.getDay()],
+        dayNumber: day,
+        fullDate: `${year}-${month}-${day}`,
+        isToday: date.getTime() === today.getTime(),
+      };
+    });
+  }, []);
+
+  const monthLabel = useMemo(() => {
+    const formatter = new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric' });
+    const labels = [...new Set(weekDays.map((day) => formatter.format(new Date(`${day.fullDate}T12:00:00`))))];
+    return labels.join(' - ');
+  }, [weekDays]);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.monthTag}>
           <Calendar size={13} color={tokens.colors.primary[400]} />
-          <Text style={styles.monthText}>Agosto - Septiembre 2026</Text>
+          <Text style={styles.monthText}>{monthLabel}</Text>
         </View>
       </View>
 

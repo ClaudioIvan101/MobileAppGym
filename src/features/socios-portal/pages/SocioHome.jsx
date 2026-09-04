@@ -7,7 +7,6 @@ import {
   ScrollView,
   Image,
   StyleSheet,
-  ActivityIndicator,
 } from 'react-native';
 import { tokens } from '../../../theme/tokens';
 import { useSocioDashboard } from '../hooks/useSocioDashboard';
@@ -49,7 +48,6 @@ export const SocioHome = ({
     isLoading,
     isError,
     refetch,
-    isRefetching,
     cancelarReserva,
     isCanceling,
   } = useSocioDashboard();

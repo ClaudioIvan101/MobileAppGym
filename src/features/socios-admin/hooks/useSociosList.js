@@ -39,6 +39,27 @@ export const useSociosList = () => {
     },
   });
 
+  const registrarPagoMutation = useMutation({
+    mutationFn: ({ socioId, payload }) => sociosAdminService.registrarPago(socioId, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: SOCIOS_LIST_KEY });
+    },
+  });
+
+  const asignarPlanMutation = useMutation({
+    mutationFn: ({ socioId, payload }) => sociosAdminService.asignarPlan(socioId, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: SOCIOS_LIST_KEY });
+    },
+  });
+
+  const crearSocioMutation = useMutation({
+    mutationFn: (payload) => sociosAdminService.crearSocio(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: SOCIOS_LIST_KEY });
+    },
+  });
+
   return {
     socios: data?.items || [],
     total: data?.total || 0,
@@ -69,6 +90,12 @@ export const useSociosList = () => {
     isRefetching,
     cambiarEstado: cambiarEstadoMutation.mutate,
     isChangingEstado: cambiarEstadoMutation.isPending,
+    registrarPago: registrarPagoMutation.mutate,
+    isRegisteringPago: registrarPagoMutation.isPending,
+    asignarPlan: asignarPlanMutation.mutate,
+    isAssigningPlan: asignarPlanMutation.isPending,
+    crearSocio: crearSocioMutation.mutate,
+    isCreatingSocio: crearSocioMutation.isPending,
   };
 };
 

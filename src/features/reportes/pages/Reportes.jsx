@@ -33,16 +33,21 @@ export const Reportes = () => {
     setSearch,
     moraMinima,
     setMoraMinima,
-    stats,
+    totalDeudores,
+    deudaTotalSum,
+    deudoresCriticosCount,
     registrarCobroExpress,
     enviarRecordatorioMasivo,
     isSendingBulk,
-    exportarCsv,
     exportarExcel,
   } = useDeudoresList();
 
   const {
-    metricas,
+    kpis,
+    facturacionMensual,
+    retencionYChurn,
+    actividadesTop,
+    horariosPico,
   } = useReportesMetricas();
 
   const handleConfirmBulkSend = (payload) => {
@@ -56,7 +61,7 @@ export const Reportes = () => {
   };
 
   const handlePaySocio = (socio) => {
-    registrarCobroExpress(socio.id, {
+    registrarCobroExpress(socio, {
       onSuccess: () => {
         setToastMessage(`Cobro de ${socio.montoFormateado} registrado para ${socio.nombreCompleto}.`);
         setTimeout(() => setToastMessage(null), 3000);
@@ -82,7 +87,6 @@ export const Reportes = () => {
         <ReportesHeader
           activeTab={activeTab}
           onSelectTab={setActiveTab}
-          onExportCsv={exportarCsv}
           onExportExcel={exportarExcel}
         />
 
@@ -91,9 +95,9 @@ export const Reportes = () => {
           <View style={styles.tabContent}>
             {/* KPIs */}
             <DeudoresKpisGrid
-              totalDeudores={stats.totalDeudores}
-              deudaTotalSum={stats.deudaTotalSum}
-              deudoresCriticosCount={stats.deudoresCriticosCount}
+              totalDeudores={totalDeudores}
+              deudaTotalSum={deudaTotalSum}
+              deudoresCriticosCount={deudoresCriticosCount}
             />
 
             {/* Filtros */}
@@ -119,19 +123,19 @@ export const Reportes = () => {
           <View style={styles.tabContent}>
             {/* KPIs Estratégicos */}
             <BusinessKpiSummary
-              kpis={metricas.kpis}
+              kpis={kpis}
             />
 
             {/* Facturación y Retención */}
             <RevenueRetentionChart
-              facturacionMensual={metricas.facturacionMensual}
-              retencionYChurn={metricas.retencionYChurn}
+              facturacionMensual={facturacionMensual}
+              retencionYChurn={retencionYChurn}
             />
 
             {/* Disciplinas y Horarios Pico */}
             <PeakHoursActivitiesCard
-              actividadesTop={metricas.actividadesTop}
-              horariosPico={metricas.horariosPico}
+              actividadesTop={actividadesTop}
+              horariosPico={horariosPico}
             />
           </View>
         )}

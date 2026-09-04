@@ -34,13 +34,12 @@ export const useSocioAsistencias = () => {
   };
 
   const heatmapDias = data?.heatmapDias || [];
-  const historialCompleto = data?.historial || [];
-
   // Filtrado en memoria por tipo de acceso
   const historialFiltrado = useMemo(() => {
+    const historialCompleto = data?.historial || [];
     if (tipoFiltro === 'ALL') return historialCompleto;
     return historialCompleto.filter((item) => item.tipo === tipoFiltro);
-  }, [historialCompleto, tipoFiltro]);
+  }, [data?.historial, tipoFiltro]);
 
   return {
     resumen,

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { dashboardService } from '../services/dashboardService';
 
 export const ADMIN_DASHBOARD_KEY = ['admin', 'dashboard'];

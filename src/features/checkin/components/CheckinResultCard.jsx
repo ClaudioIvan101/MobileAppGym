@@ -7,7 +7,6 @@ import {
   XCircle,
   AlertTriangle,
   Calendar,
-  CreditCard,
   DollarSign,
   UserPlus,
   ShieldAlert,

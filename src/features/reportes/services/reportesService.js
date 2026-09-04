@@ -1,4 +1,4 @@
-import apiClient from '../../../api/client';
+import { apiClient } from '../../../api/client';
 
 /**
  * Servicio de API para Gestión de Deudores, Cobranzas y Métricas Comerciales de Reportes
@@ -23,6 +23,22 @@ export const reportesService = {
    */
   enviarRecordatorioMasivo: async (payload) => {
     const response = await apiClient.post('/api/admin/reportes/deudores/recordatorio-masivo', payload);
+    return response.data;
+  },
+
+  registrarCobroExpress: async (socio) => {
+    const socioId = socio?.id;
+    const monto = Number(socio?.montoDeuda || 0);
+    const metodoPago = 'EFECTIVO';
+    const isNumericId = /^\d+$/.test(String(socioId || ''));
+    const endpoint = isNumericId
+      ? `/api/socios/${socioId}/cobrar-deuda`
+      : `/api/admin/reportes/deudores/${encodeURIComponent(socioId || '')}/cobro-express`;
+    const response = await apiClient.post(endpoint, {
+      monto,
+      metodoPago,
+      fechaVencimientoDeuda: socio?.fechaVencimiento,
+    });
     return response.data;
   },
 

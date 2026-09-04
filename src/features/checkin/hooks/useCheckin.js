@@ -30,9 +30,9 @@ export const useCheckin = ({ playSound = true } = {}) => {
 
       // Feedback sonoro inmediato
       if (playSound) {
-        if (data.tipoResultado === 'HABILITADO') {
+        if (data.tipoResultado === 'HABILITADO' || data.accesoPermitido) {
           audioFeedback.playSuccess();
-        } else if (data.tipoResultado === 'DENEGADO_CUOTA') {
+        } else if (data.tipoResultado === 'DENEGADO_CUOTA' || !data.accesoPermitido) {
           audioFeedback.playError();
         } else if (data.tipoResultado === 'SIN_RESERVA') {
           audioFeedback.playWarning();
@@ -46,7 +46,11 @@ export const useCheckin = ({ playSound = true } = {}) => {
 
   // Mutación para forzar acceso excepcional
   const forzarAccesoMutation = useMutation({
-    mutationFn: ({ socioId, motivo }) => checkinService.forzarAcceso({ socioId, motivo }),
+    mutationFn: ({ socioId, motivo }) => checkinService.forzarAcceso({
+      socioId,
+      motivo,
+      dni: lastResult?.socio?.dni || lastResult?.dni,
+    }),
     onSuccess: () => {
       if (lastResult?.socio) {
         setLastResult({

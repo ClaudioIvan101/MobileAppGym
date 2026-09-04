@@ -12,9 +12,6 @@ import { tokens } from '../../../theme/tokens';
 import { useCheckin } from '../hooks/useCheckin';
 import {
   Scan,
-  CheckCircle2,
-  XCircle,
-  AlertTriangle,
   Dumbbell,
 } from 'lucide-react-native';
 

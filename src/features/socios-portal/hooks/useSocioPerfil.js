@@ -31,7 +31,7 @@ export const useSocioPerfil = () => {
   const updatePerfilMutation = useMutation({
     mutationFn: (updatedData) => socioPortalService.updatePerfil(updatedData),
     onSuccess: (data) => {
-      queryClient.setQueryData(PERFIL_QUERY_KEY, data.perfil);
+      queryClient.setQueryData(PERFIL_QUERY_KEY, data?.perfil || data);
       queryClient.invalidateQueries({ queryKey: SOCIO_DASHBOARD_QUERY_KEY });
     },
   });

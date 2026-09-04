@@ -15,7 +15,6 @@ export const useClassRealtimeDetail = (claseId) => {
     data: claseDetalle,
     isLoading,
     isError,
-    error,
     refetch,
   } = useQuery({
     queryKey: [...CLASE_DETALLE_KEY, claseId],

@@ -1,54 +1,28 @@
-<<<<<<< HEAD
-# MobileAppGym
-=======
-# Welcome to your Expo app 👋
+# StrongFit Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicación universal de StrongFit para administración del gimnasio y portal de socios. Está construida con Expo SDK 54, Expo Router, React Native y TanStack Query.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Puesta en marcha
 
 ```bash
-npm run reset-project
+npm install
+npm start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+El comando `npm start` usa el modo offline de Expo para evitar el fallo de validación remota `Body has already been read` del CLI. Para habilitar la validación online:
 
-## Learn more
+```bash
+npm run start:online
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Puedes indicar la URL del backend con `EXPO_PUBLIC_API_URL`. Si no se define, la app usa el endpoint configurado por defecto y sus datos de desarrollo cuando la API no está disponible.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Validaciones
 
-## Join the community
+```bash
+npm run lint
+npx tsc --noEmit
+npm run export:web
+```
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
->>>>>>> aa47100 (Initial commit)
+Las rutas principales están dentro de `app/`; los módulos de negocio viven en `src/features/`.

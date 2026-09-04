@@ -27,10 +27,10 @@ export const useCajaHistorial = () => {
     if (!search.trim()) return true;
     const q = search.toLowerCase();
     return (
-      item.responsable.toLowerCase().includes(q) ||
-      item.turno.toLowerCase().includes(q) ||
-      item.fechaCierre.includes(q) ||
-      item.cajaId.toLowerCase().includes(q)
+      String(item.responsable || '').toLowerCase().includes(q) ||
+      String(item.turno || '').toLowerCase().includes(q) ||
+      String(item.fechaCierre || '').toLowerCase().includes(q) ||
+      String(item.cajaId || '').toLowerCase().includes(q)
     );
   });
 
@@ -46,6 +46,16 @@ export const useCajaHistorial = () => {
     error,
     refetch,
     isRefetching,
+    exportarExcel: async () => {
+      const rows = filteredHistorial.map((item) => [
+        item.fechaCierre,
+        item.turno,
+        item.responsable,
+        item.totalIngresos,
+        item.diferencia,
+      ].join(','));
+      return rows.join('\n');
+    },
   };
 };
 

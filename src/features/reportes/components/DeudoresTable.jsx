@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, Linking, StyleSheet } from 'react-native';
+import { View, Text, Image, Linking, StyleSheet } from 'react-native';
 import { tokens } from '../../../theme/tokens';
 import { Button } from '../../../components/Button';
 import { MessageCircle, CreditCard } from 'lucide-react-native';

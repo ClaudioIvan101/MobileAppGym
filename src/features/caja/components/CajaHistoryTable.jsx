@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { tokens } from '../../../theme/tokens';
-import { FileText, Download } from 'lucide-react-native';
+import { Download } from 'lucide-react-native';
 import { Button } from '../../../components/Button';
 
 /**

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { tokens } from '../../../theme/tokens';
 import { Badge } from '../../../components/Badge';
-import { QrCode, Sparkles, Clock } from 'lucide-react-native';
+import { QrCode, Sparkles } from 'lucide-react-native';
 
 /**
  * Hero Card de Identidad del Socio universal para React Native

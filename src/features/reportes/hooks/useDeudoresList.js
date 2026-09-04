@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Share } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { reportesService } from '../services/reportesService';
 
@@ -37,10 +38,33 @@ export const useDeudoresList = () => {
     },
   });
 
+  const cobrarMutation = useMutation({
+    mutationFn: (socio) => reportesService.registrarCobroExpress(socio),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: DEUDORES_QUERY_KEY });
+    },
+  });
+
   // KPIs calculados
   const totalDeudores = deudores?.length || 0;
-  const deudaTotalSum = (deudores || []).reduce((acc, d) => acc + (d.montoDeuda || 0), 0);
+  const deudaTotalSum = (deudores || []).reduce((acc, d) => acc + Number(d.montoDeuda || 0), 0);
   const deudoresCriticosCount = (deudores || []).filter((d) => d.diasMora >= 30).length;
+
+  const exportarCsv = async () => {
+    const header = 'Socio,DNI,Plan,Dias de mora,Monto adeudado';
+    const rows = (deudores || []).map((item) => [
+      item.nombreCompleto,
+      item.dni,
+      item.plan,
+      item.diasMora,
+      item.montoDeuda,
+    ].map((value) => `"${String(value ?? '').replace(/"/g, '""')}"`).join(','));
+    const csv = [header, ...rows].join('\n');
+    if (Share?.share) {
+      return Share.share({ title: 'Deudores StrongFit', message: csv });
+    }
+    return csv;
+  };
 
   return {
     deudores: deudores || [],
@@ -62,6 +86,10 @@ export const useDeudoresList = () => {
     isRefetching,
     enviarRecordatorioMasivo: enviarRecordatorioMasivoMutation.mutate,
     isSendingBulk: enviarRecordatorioMasivoMutation.isPending,
+    registrarCobroExpress: cobrarMutation.mutate,
+    isRegisteringCobro: cobrarMutation.isPending,
+    exportarCsv,
+    exportarExcel: exportarCsv,
   };
 };
 

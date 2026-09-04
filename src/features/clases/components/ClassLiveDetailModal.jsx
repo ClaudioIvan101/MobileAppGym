@@ -7,7 +7,6 @@ import { useClassRealtimeDetail } from '../hooks/useClassRealtimeDetail';
 import {
   Clock,
   MapPin,
-  User,
   CheckCircle2,
   XCircle,
   UserPlus,
@@ -34,7 +33,6 @@ export const ClassLiveDetailModal = ({
     cupoOcupado,
     cupoLibre,
     toggleAsistencia,
-    isTogglingAsistencia,
     inscribirManual,
     isInscribingManual,
     promoverEspera,
@@ -142,7 +140,7 @@ export const ClassLiveDetailModal = ({
               </View>
 
               <TouchableOpacity
-                onPress={() => toggleAsistencia(item.socioId)}
+                onPress={() => toggleAsistencia(item.reservaId, item.asistio ? 'CONFIRMADA' : 'ASISTIO')}
                 activeOpacity={0.75}
                 style={[
                   styles.checkBtn,

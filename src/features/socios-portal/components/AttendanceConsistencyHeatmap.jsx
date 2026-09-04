@@ -16,7 +16,6 @@ export const AttendanceConsistencyHeatmap = ({
     metaMensual = 20,
     porcentajeMeta = 70,
     rachaActual = 5,
-    ausenciasNoShow = 1,
     horasTotales = '18h 45m',
   } = resumen || {};
 

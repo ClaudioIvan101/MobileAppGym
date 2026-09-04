@@ -8,8 +8,6 @@ import { Layers } from 'lucide-react-native';
 const DURACIONES = [
   { dias: 30, label: '30 días' },
   { dias: 90, label: '90 días' },
-  { dias: 180, label: '180 días' },
-  { dias: 365, label: '365 días' },
 ];
 
 /**

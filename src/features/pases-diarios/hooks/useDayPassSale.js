@@ -83,6 +83,15 @@ export const useDayPassSale = () => {
   });
 
   const selectedTarifa = tarifasQuery.data?.find((t) => t.id === selectedTarifaId) || tarifasQuery.data?.[0];
+  const isCajaAbierta = cajaQuery.data?.isAbierta ?? false;
+
+  const canSubmit = Boolean(
+    isCajaAbierta &&
+      selectedTarifa &&
+      cleanDni.length >= 7 &&
+      nombre.trim().length >= 2 &&
+      !venderPaseMutation.isPending
+  );
 
   const handleResetForm = () => {
     setDni('');
@@ -97,8 +106,9 @@ export const useDayPassSale = () => {
 
   return {
     caja: cajaQuery.data,
+    cajaData: cajaQuery.data,
     isCajaLoading: cajaQuery.isLoading,
-    isCajaAbierta: cajaQuery.data?.isAbierta ?? true,
+    isCajaAbierta,
     tarifas: tarifasQuery.data || [],
     isTarifasLoading: tarifasQuery.isLoading,
     selectedTarifa,
@@ -116,6 +126,8 @@ export const useDayPassSale = () => {
     setTelefono,
     medioPago,
     setMedioPago,
+    paymentMethod: medioPago,
+    setPaymentMethod: setMedioPago,
     puntoAcceso,
     setPuntoAcceso,
     isExistingPerson,
@@ -125,6 +137,8 @@ export const useDayPassSale = () => {
     isOpeningCaja: abrirCajaMutation.isPending,
     venderPase: venderPaseMutation.mutate,
     isSelling: venderPaseMutation.isPending,
+    isSubmitting: venderPaseMutation.isPending,
+    canSubmit,
     saleResult,
     clearSaleResult: handleResetForm,
     isOpenCajaModalOpen,

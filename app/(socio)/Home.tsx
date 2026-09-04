@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import { SocioHome } from '../../src/features/socios-portal';
 import { useRouter } from 'expo-router';
 
@@ -11,7 +12,9 @@ export default function SocioHomeScreen() {
       onNavigateToRoutines={() => router.push('/(socio)/Asistencias')}
       onNavigateToMembership={() => router.push('/(socio)/Membresia')}
       onNavigateToProfile={() => router.push('/(socio)/Perfil')}
-      onNavigateToNotifications={() => console.log('Navegar a Notificaciones')}
+      onNavigateToNotifications={() =>
+        Alert.alert('Notificaciones', 'No tienes notificaciones nuevas.')
+      }
     />
   );
 }

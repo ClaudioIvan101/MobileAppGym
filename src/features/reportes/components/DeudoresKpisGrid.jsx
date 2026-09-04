@@ -38,7 +38,7 @@ export const DeudoresKpisGrid = ({
           <ShieldAlert size={14} color="#f87171" />
         </View>
         <View>
-          <Text style={styles.kpiLabel}>{'Mora > 30d'}</Text>
+        <Text style={styles.kpiLabel}>Mora &gt; 30d</Text>
           <Text style={styles.kpiValue}>{deudoresCriticosCount} socios</Text>
         </View>
       </View>

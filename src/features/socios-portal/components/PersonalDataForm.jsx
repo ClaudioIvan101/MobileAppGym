@@ -4,9 +4,6 @@ import { tokens } from '../../../theme/tokens';
 import { Button } from '../../../components/Button';
 import {
   User,
-  Phone,
-  Mail,
-  MapPin,
   HeartPulse,
   Save,
   Lock,

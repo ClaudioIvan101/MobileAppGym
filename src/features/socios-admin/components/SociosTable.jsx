@@ -8,7 +8,6 @@ import {
   Layers,
   ChevronLeft,
   ChevronRight,
-  Phone,
 } from 'lucide-react-native';
 
 /**

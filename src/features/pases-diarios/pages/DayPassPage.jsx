@@ -25,7 +25,7 @@ import {
 /**
  * Pantalla de Venta de Pase Diario universal para React Native
  */
-export const DayPassPage = () => {
+export const DayPassPage = ({ onBack }) => {
   const [isOpenCajaModalVisible, setIsOpenCajaModalVisible] = useState(false);
   const [successModalData, setSuccessModalData] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
@@ -55,6 +55,7 @@ export const DayPassPage = () => {
     venderPase,
     isSubmitting,
     canSubmit,
+    existingPersonaData,
   } = useDayPassSale();
 
   const handleConfirmOpenCaja = (montoInicial) => {
@@ -68,7 +69,24 @@ export const DayPassPage = () => {
   };
 
   const handleExecuteSale = () => {
-    venderPase(null, {
+    const cleanDni = dni.replace(/\D/g, '');
+    const socioId = existingPersonaData?.id ?? existingPersonaData?.idSocio;
+    const payload = {
+      ...(isExistingPerson && socioId
+        ? { socioId }
+        : {
+            visitante: {
+              nombre: [nombre, apellido].filter(Boolean).join(' ').trim(),
+              dni: cleanDni,
+              telefono: telefono.trim(),
+            },
+          }),
+      importe: Number(selectedTarifa?.precio ?? selectedTarifa?.precioBase ?? 0),
+      metodoPago: paymentMethod,
+      idempotencyKey: `day-pass-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    };
+
+    venderPase(payload, {
       onSuccess: (result) => {
         setSuccessModalData(result);
       },
@@ -86,7 +104,7 @@ export const DayPassPage = () => {
 
       {/* Header */}
       <View style={styles.headerBar}>
-        <View style={styles.headerLeft}>
+          <View style={styles.headerLeft}>
           <View style={styles.iconCircle}>
             <Ticket size={18} color={tokens.colors.primary[400]} />
           </View>
@@ -94,6 +112,11 @@ export const DayPassPage = () => {
             <Text style={styles.headerSubtitle}>MOSTRADOR • RECEPCIÓN</Text>
             <Text style={styles.headerTitle}>Venta de Pase Diario</Text>
           </View>
+          {onBack ? (
+            <Button variant="ghost" size="sm" onPress={onBack}>
+              Volver
+            </Button>
+          ) : null}
         </View>
       </View>
 

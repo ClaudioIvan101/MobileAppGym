@@ -8,7 +8,6 @@ import {
   Building2,
   Banknote,
   CheckCircle2,
-  Calendar,
   Eye,
 } from 'lucide-react-native';
 

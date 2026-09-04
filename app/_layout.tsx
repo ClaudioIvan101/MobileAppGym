@@ -8,7 +8,6 @@ export default function RootLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="(socio)" />
         <Stack.Screen name="(admin)" />
-        <Stack.Screen name="(tabs)" />
       </Stack>
     </QueryProvider>
   );

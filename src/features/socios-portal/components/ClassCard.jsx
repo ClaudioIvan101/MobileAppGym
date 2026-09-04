@@ -22,9 +22,7 @@ export const ClassCard = ({
   isLoading = false,
 }) => {
   const {
-    id,
     nombre,
-    disciplina,
     instructor,
     sala,
     fecha,

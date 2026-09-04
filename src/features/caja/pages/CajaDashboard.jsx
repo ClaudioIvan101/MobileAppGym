@@ -54,7 +54,10 @@ export const CajaDashboard = () => {
   };
 
   const handleConfirmClose = (payload) => {
-    cerrarCaja(payload, {
+    cerrarCaja({
+      ...payload,
+      saldoInicial: caja?.saldoInicial ?? 0,
+    }, {
       onSuccess: (resultado) => {
         setIsCloseModalOpen(false);
         setToastMessage(`Cierre realizado con éxito.`);

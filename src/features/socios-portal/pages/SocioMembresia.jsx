@@ -39,7 +39,6 @@ export const SocioMembresia = ({
     isLoading,
     isError,
     refetch,
-    isRefetching,
     isExpiringSoon,
     isPackClases,
     clasesTotales,

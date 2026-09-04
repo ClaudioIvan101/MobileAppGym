@@ -2,12 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { tokens } from '../../../theme/tokens';
 import {
-  Clock,
   Dumbbell,
   CheckCircle2,
   XCircle,
   Calendar,
-  MapPin,
 } from 'lucide-react-native';
 
 /**

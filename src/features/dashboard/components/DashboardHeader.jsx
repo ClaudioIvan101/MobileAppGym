@@ -5,7 +5,6 @@ import { Button } from '../../../components/Button';
 import {
   DollarSign,
   UserPlus,
-  Download,
   LayoutDashboard,
   Clock,
 } from 'lucide-react-native';

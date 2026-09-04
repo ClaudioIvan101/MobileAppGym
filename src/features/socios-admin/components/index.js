@@ -2,6 +2,7 @@ export { SociosFiltersBar } from './SociosFiltersBar';
 export { SociosTable } from './SociosTable';
 export { RegisterPaymentModal } from './RegisterPaymentModal';
 export { AssignPlanModal } from './AssignPlanModal';
+export { NewSocioModal } from './NewSocioModal';
 export { SocioProfileHeader } from './SocioProfileHeader';
 export { TabMemberships } from './TabMemberships';
 export { TabPaymentsAccount } from './TabPaymentsAccount';

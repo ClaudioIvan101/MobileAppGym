@@ -30,20 +30,21 @@ export const PlanesList = () => {
     setModalidad,
     estado,
     setEstado,
-    stats,
+    totalPlanes,
+    planesActivos,
+    totalSociosSuscritos,
     isLoading,
-    crearPlan,
+    createPlan,
     isCreating,
-    actualizarPlan,
+    updatePlan,
     isUpdating,
-    toggleEstadoPlan,
-    eliminarPlan,
+    toggleEstado,
   } = usePlanesList();
 
   const handleSavePlan = (planData) => {
     if (selectedPlanForEdit) {
-      actualizarPlan(
-        { id: selectedPlanForEdit.id, ...planData },
+      updatePlan(
+        { planId: selectedPlanForEdit.id, payload: planData },
         {
           onSuccess: () => {
             setSelectedPlanForEdit(null);
@@ -53,7 +54,7 @@ export const PlanesList = () => {
         }
       );
     } else {
-      crearPlan(planData, {
+      createPlan(planData, {
         onSuccess: () => {
           setIsCreateModalOpen(false);
           setToastMessage(`Plan "${planData.nombre}" creado exitosamente.`);
@@ -64,8 +65,9 @@ export const PlanesList = () => {
   };
 
   const handleToggleEstado = (plan) => {
-    toggleEstadoPlan(plan.id, {
-      onSuccess: (nuevoEstado) => {
+    const nuevoEstado = plan.estado === 'ACTIVO' ? 'PAUSADO' : 'ACTIVO';
+    toggleEstado({ planId: plan.id, nuevoEstado }, {
+      onSuccess: () => {
         setToastMessage(`Plan "${plan.nombre}" ahora está ${nuevoEstado}.`);
         setTimeout(() => setToastMessage(null), 3000);
       },
@@ -99,9 +101,9 @@ export const PlanesList = () => {
 
         {/* KPIs */}
         <PlanesStatsGrid
-          totalPlanes={stats.totalPlanes}
-          planesActivos={stats.planesActivos}
-          totalSociosSuscritos={stats.totalSociosSuscritos}
+          totalPlanes={totalPlanes}
+          planesActivos={planesActivos}
+          totalSociosSuscritos={totalSociosSuscritos}
         />
 
         {/* Grilla de Planes */}

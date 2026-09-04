@@ -32,7 +32,7 @@ class AudioFeedbackManager {
         osc.start(now);
         osc.stop(now + 0.25);
       }
-    } catch (e) {
+    } catch (_e) {
       // Silencioso
     }
   }
@@ -57,7 +57,7 @@ class AudioFeedbackManager {
         osc.start(now);
         osc.stop(now + 0.4);
       }
-    } catch (e) {
+    } catch (_e) {
       // Silencioso
     }
   }
@@ -82,7 +82,7 @@ class AudioFeedbackManager {
         osc.start(now);
         osc.stop(now + 0.25);
       }
-    } catch (e) {
+    } catch (_e) {
       // Silencioso
     }
   }

@@ -13,6 +13,7 @@ import { SociosFiltersBar } from '../components/SociosFiltersBar';
 import { SociosTable } from '../components/SociosTable';
 import { RegisterPaymentModal } from '../components/RegisterPaymentModal';
 import { AssignPlanModal } from '../components/AssignPlanModal';
+import { NewSocioModal } from '../components/NewSocioModal';
 import {
   Users,
   CheckCircle2,
@@ -24,10 +25,11 @@ import {
  */
 export const SociosList = ({
   onViewSocioProfile = (socio) => console.log('Ver Ficha 360 de:', socio),
-  onNuevoSocio = () => console.log('Crear Nuevo Socio'),
+  onNuevoSocio = null,
 }) => {
   const [selectedSocioForPayment, setSelectedSocioForPayment] = useState(null);
   const [selectedSocioForPlan, setSelectedSocioForPlan] = useState(null);
+  const [isNewSocioModalOpen, setIsNewSocioModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
   const {
@@ -43,7 +45,29 @@ export const SociosList = ({
     isLoading,
     refetch,
     cambiarEstado,
+    registrarPago,
+    isRegisteringPago,
+    asignarPlan,
+    isAssigningPlan,
+    crearSocio,
+    isCreatingSocio,
   } = useSociosList();
+
+  const handleOpenNewSocio = onNuevoSocio || (() => setIsNewSocioModalOpen(true));
+
+  const handleConfirmNewSocio = (payload) => {
+    crearSocio(payload, {
+      onSuccess: (socio) => {
+        setIsNewSocioModalOpen(false);
+        setToastMessage(`Socio ${socio.nombreCompleto} creado correctamente.`);
+        setTimeout(() => setToastMessage(null), 3000);
+      },
+      onError: () => {
+        setToastMessage('No se pudo crear el socio. Verifica que el DNI no esté registrado.');
+        setTimeout(() => setToastMessage(null), 4000);
+      },
+    });
+  };
 
   const handleToggleStatus = (socio) => {
     const nuevoEstado = socio.planEstado === 'active' ? 'inactive' : 'active';
@@ -59,17 +83,37 @@ export const SociosList = ({
   };
 
   const handleConfirmPayment = (payload) => {
-    setToastMessage(`Pago de ${payload.monto} registrado exitosamente.`);
-    setSelectedSocioForPayment(null);
-    setTimeout(() => setToastMessage(null), 3000);
-    refetch();
+    registrarPago(
+      { socioId: payload.socioId, payload },
+      {
+        onSuccess: () => {
+          setToastMessage(`Pago de ${payload.monto} registrado exitosamente.`);
+          setSelectedSocioForPayment(null);
+          setTimeout(() => setToastMessage(null), 3000);
+        },
+        onError: () => {
+          setToastMessage('No se pudo registrar el pago. Revisa la caja y vuelve a intentar.');
+          setTimeout(() => setToastMessage(null), 4000);
+        },
+      }
+    );
   };
 
   const handleConfirmPlan = (payload) => {
-    setToastMessage(`Plan "${payload.planNombre}" asignado correctamente.`);
-    setSelectedSocioForPlan(null);
-    setTimeout(() => setToastMessage(null), 3000);
-    refetch();
+    asignarPlan(
+      { socioId: payload.socioId, payload },
+      {
+        onSuccess: () => {
+          setToastMessage(`Plan "${payload.planNombre}" asignado correctamente.`);
+          setSelectedSocioForPlan(null);
+          setTimeout(() => setToastMessage(null), 3000);
+        },
+        onError: () => {
+          setToastMessage('No se pudo asignar el plan. Inténtalo de nuevo.');
+          setTimeout(() => setToastMessage(null), 4000);
+        },
+      }
+    );
   };
 
   const handleExport = () => {
@@ -120,7 +164,7 @@ export const SociosList = ({
           estado={estado}
           onEstadoChange={setEstado}
           totalResults={total}
-          onNuevoSocio={onNuevoSocio}
+          onNuevoSocio={handleOpenNewSocio}
           onExportar={handleExport}
         />
 
@@ -145,6 +189,7 @@ export const SociosList = ({
         onClose={() => setSelectedSocioForPayment(null)}
         socio={selectedSocioForPayment}
         onConfirmPayment={handleConfirmPayment}
+        isLoading={isRegisteringPago}
       />
 
       {/* Modal Asignar Plan */}
@@ -153,6 +198,14 @@ export const SociosList = ({
         onClose={() => setSelectedSocioForPlan(null)}
         socio={selectedSocioForPlan}
         onConfirmPlan={handleConfirmPlan}
+        isLoading={isAssigningPlan}
+      />
+
+      <NewSocioModal
+        isOpen={isNewSocioModalOpen}
+        onClose={() => setIsNewSocioModalOpen(false)}
+        onConfirm={handleConfirmNewSocio}
+        isLoading={isCreatingSocio}
       />
     </SafeAreaView>
   );

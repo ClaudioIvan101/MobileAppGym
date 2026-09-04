@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { tokens } from '../../../theme/tokens';
-import { Layers, Clock, Check } from 'lucide-react-native';
+import { Layers, Clock } from 'lucide-react-native';
 
 /**
  * Selector de Tarifas de Pases Diarios universal para React Native

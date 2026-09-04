@@ -8,7 +8,6 @@ export default function AdminSociosScreen() {
   return (
     <SociosList
       onViewSocioProfile={(socio) => router.push(`/(admin)/SocioDetail?id=${socio.id}`)}
-      onNuevoSocio={() => console.log('Crear nuevo socio')}
     />
   );
 }

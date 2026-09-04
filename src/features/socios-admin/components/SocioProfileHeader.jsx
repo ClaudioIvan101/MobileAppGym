@@ -8,8 +8,6 @@ import {
   CreditCard,
   Layers,
   ArrowLeft,
-  Phone,
-  Mail,
 } from 'lucide-react-native';
 
 /**

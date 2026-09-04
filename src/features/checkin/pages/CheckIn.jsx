@@ -57,9 +57,8 @@ export const CheckIn = ({
   };
 
   const handleAsignarCupo = (claseId, socioId) => {
-    setToastMessage('Cupo asignado. Ingreso permitido.');
-    setTimeout(() => setToastMessage(null), 3000);
-    validarCheckin('41.892.401');
+    setToastMessage(`La clase ${claseId} requiere una reserva o sesión válida para registrar el ingreso.`);
+    setTimeout(() => setToastMessage(null), 4000);
   };
 
   return (
