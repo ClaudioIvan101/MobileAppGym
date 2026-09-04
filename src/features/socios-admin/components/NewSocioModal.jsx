@@ -19,9 +19,15 @@ export const NewSocioModal = ({ isOpen, onClose, onConfirm, isLoading = false })
 
   useEffect(() => {
     if (isOpen) {
-      setForm(INITIAL_FORM);
-      setError('');
+      const resetTimeout = setTimeout(() => {
+        setForm(INITIAL_FORM);
+        setError('');
+      }, 0);
+
+      return () => clearTimeout(resetTimeout);
     }
+
+    return undefined;
   }, [isOpen]);
 
   const updateField = (field, value) => {

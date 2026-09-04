@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, Linking, StyleSheet } from 'react-native';
 import { tokens } from '../../../theme/tokens';
 import {
-  CalendarAlert,
+  CalendarClock,
   MessageCircle,
   CreditCard,
   Clock,
@@ -45,7 +45,7 @@ export const ExpiringMembersList = ({
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.titleRow}>
-          <CalendarAlert size={16} color="#fbbf24" />
+          <CalendarClock size={16} color="#fbbf24" />
           <Text style={styles.title}>Próximos Vencimientos</Text>
         </View>
         <View style={styles.countBadge}>

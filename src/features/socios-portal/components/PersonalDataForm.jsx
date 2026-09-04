@@ -27,14 +27,20 @@ export const PersonalDataForm = ({
 
   useEffect(() => {
     if (perfil) {
-      setFormData({
-        telefono: perfil.telefono || '',
-        email: perfil.email || '',
-        direccion: perfil.direccion || '',
-        contactoEmergenciaNombre: perfil.contactoEmergenciaNombre || '',
-        contactoEmergenciaTelefono: perfil.contactoEmergenciaTelefono || '',
-      });
+      const syncTimeout = setTimeout(() => {
+        setFormData({
+          telefono: perfil.telefono || '',
+          email: perfil.email || '',
+          direccion: perfil.direccion || '',
+          contactoEmergenciaNombre: perfil.contactoEmergenciaNombre || '',
+          contactoEmergenciaTelefono: perfil.contactoEmergenciaTelefono || '',
+        });
+      }, 0);
+
+      return () => clearTimeout(syncTimeout);
     }
+
+    return undefined;
   }, [perfil]);
 
   const handleChange = (field, value) => {

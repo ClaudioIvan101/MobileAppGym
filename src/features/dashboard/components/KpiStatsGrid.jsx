@@ -4,7 +4,7 @@ import { tokens } from '../../../theme/tokens';
 import {
   Users,
   DollarSign,
-  CalendarAlert,
+  CalendarClock,
   Dumbbell,
   TrendingUp,
 } from 'lucide-react-native';
@@ -66,7 +66,7 @@ export const KpiStatsGrid = ({
         <View style={styles.headerRow}>
           <Text style={styles.cardLabel}>Por Vencer (14d)</Text>
           <View style={[styles.iconBadge, { backgroundColor: 'rgba(245, 158, 11, 0.12)', borderColor: '#f59e0b' }]}>
-            <CalendarAlert size={14} color="#fbbf24" />
+            <CalendarClock size={14} color="#fbbf24" />
           </View>
         </View>
         <Text style={[styles.mainValue, { color: '#fbbf24' }]}>{planesPorVencer}</Text>

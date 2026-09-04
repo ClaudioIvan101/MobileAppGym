@@ -3,11 +3,11 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   ScrollView,
   Image,
   StyleSheet,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { tokens } from '../../../theme/tokens';
 import { useSocioDashboard } from '../hooks/useSocioDashboard';
 import { HeroIdentityCard } from '../components/HeroIdentityCard';
@@ -66,7 +66,7 @@ export const SocioHome = ({
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeContainer}>
       {/* Header Bar */}
       <View style={styles.headerBar}>
         <View style={styles.brandRow}>

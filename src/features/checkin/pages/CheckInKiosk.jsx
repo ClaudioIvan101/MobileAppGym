@@ -5,9 +5,9 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  SafeAreaView,
   StyleSheet,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { tokens } from '../../../theme/tokens';
 import { useCheckin } from '../hooks/useCheckin';
 import {
@@ -33,7 +33,7 @@ export const CheckInKiosk = ({
   useEffect(() => {
     if (!lastResult) return;
 
-    setCountdown(4);
+    const resetTimeout = setTimeout(() => setCountdown(4), 0);
     const interval = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
@@ -45,7 +45,10 @@ export const CheckInKiosk = ({
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(resetTimeout);
+      clearInterval(interval);
+    };
   }, [lastResult, clearResult]);
 
   const handleSubmit = () => {
@@ -59,7 +62,7 @@ export const CheckInKiosk = ({
   const isDenegado = lastResult?.tipoResultado === 'DENEGADO_CUOTA';
 
   return (
-    <SafeAreaView style={styles.kioskContainer}>
+    <SafeAreaView edges={['top', 'left', 'right', 'bottom']} style={styles.kioskContainer}>
       {/* Header */}
       <View style={styles.kioskHeader}>
         <View style={styles.brandRow}>

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { tokens } from '../../../theme/tokens';
 import { useDayPassSale } from '../hooks/useDayPassSale';
 import { CashRegisterGuardBanner } from '../components/CashRegisterGuardBanner';
@@ -94,7 +94,7 @@ export const DayPassPage = ({ onBack }) => {
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeContainer}>
       {toastMessage && (
         <View style={styles.toast}>
           <CheckCircle2 size={16} color={tokens.colors.primary[400]} />

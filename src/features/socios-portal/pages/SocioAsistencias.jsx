@@ -3,10 +3,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { tokens } from '../../../theme/tokens';
 import { useSocioAsistencias } from '../hooks/useSocioAsistencias';
 import { AttendanceConsistencyHeatmap } from '../components/AttendanceConsistencyHeatmap';
@@ -39,7 +39,7 @@ export const SocioAsistencias = ({
   } = useSocioAsistencias();
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeContainer}>
       {/* Header Bar */}
       <View style={styles.headerBar}>
         <View style={styles.headerLeft}>

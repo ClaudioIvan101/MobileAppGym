@@ -22,7 +22,7 @@ export const DigitalPassModal = ({
   useEffect(() => {
     if (!isOpen) return;
 
-    setSecondsRemaining(60);
+    const resetTimeout = setTimeout(() => setSecondsRemaining(60), 0);
     const interval = setInterval(() => {
       setSecondsRemaining((prev) => {
         if (prev <= 1) return 60;
@@ -30,7 +30,10 @@ export const DigitalPassModal = ({
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(resetTimeout);
+      clearInterval(interval);
+    };
   }, [isOpen]);
 
   const codigoSocio = socio?.id || 'SF-8842';

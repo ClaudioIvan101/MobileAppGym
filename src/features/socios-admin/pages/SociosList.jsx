@@ -3,10 +3,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { tokens } from '../../../theme/tokens';
 import { useSociosList } from '../hooks/useSociosList';
 import { SociosFiltersBar } from '../components/SociosFiltersBar';
@@ -122,7 +122,7 @@ export const SociosList = ({
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeContainer}>
       {/* Toast Feedback */}
       {toastMessage && (
         <View style={styles.toast}>

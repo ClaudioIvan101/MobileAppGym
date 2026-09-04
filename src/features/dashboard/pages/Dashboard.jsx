@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { tokens } from '../../../theme/tokens';
 import { useAdminDashboard } from '../hooks/useAdminDashboard';
 import { DashboardHeader } from '../components/DashboardHeader';
@@ -53,7 +53,7 @@ export const Dashboard = ({
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeContainer}>
       {toastMessage && (
         <View style={styles.toast}>
           <CheckCircle2 size={16} color={tokens.colors.primary[400]} />

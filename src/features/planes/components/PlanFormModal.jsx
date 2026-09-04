@@ -30,21 +30,25 @@ export const PlanFormModal = ({
   const [precio, setPrecio] = useState('38500');
 
   useEffect(() => {
-    if (plan) {
-      setNombre(plan.nombre || '');
-      setDescripcion(plan.descripcion || '');
-      setModalidad(plan.modalidad || 'GENERAL');
-      setCantidadClases(String(plan.cantidadClases || 12));
-      setDuracionDias(plan.duracionDias || 30);
-      setPrecio(String(plan.precio || 38500));
-    } else {
-      setNombre('');
-      setDescripcion('');
-      setModalidad('GENERAL');
-      setCantidadClases('12');
-      setDuracionDias(30);
-      setPrecio('38500');
-    }
+    const resetTimeout = setTimeout(() => {
+      if (plan) {
+        setNombre(plan.nombre || '');
+        setDescripcion(plan.descripcion || '');
+        setModalidad(plan.modalidad || 'GENERAL');
+        setCantidadClases(String(plan.cantidadClases || 12));
+        setDuracionDias(plan.duracionDias || 30);
+        setPrecio(String(plan.precio || 38500));
+      } else {
+        setNombre('');
+        setDescripcion('');
+        setModalidad('GENERAL');
+        setCantidadClases('12');
+        setDuracionDias(30);
+        setPrecio('38500');
+      }
+    }, 0);
+
+    return () => clearTimeout(resetTimeout);
   }, [plan, isOpen]);
 
   const handleSubmit = () => {

@@ -3,9 +3,9 @@ import {
   View,
   Text,
   ScrollView,
-  SafeAreaView,
   StyleSheet,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { tokens } from '../../../theme/tokens';
 import { useClasesAdmin } from '../hooks/useClasesAdmin';
 import { ClasesAgendaHeader } from '../components/ClasesAgendaHeader';
@@ -45,7 +45,7 @@ export const ClasesList = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeContainer}>
       {toastMessage && (
         <View style={styles.toast}>
           <CheckCircle2 size={16} color={tokens.colors.primary[400]} />

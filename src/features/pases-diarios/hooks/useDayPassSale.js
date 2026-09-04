@@ -50,18 +50,22 @@ export const useDayPassSale = () => {
 
   // Autocompletar datos cuando se encuentra una persona
   useEffect(() => {
-    if (dniSearchQuery.data?.existe && dniSearchQuery.data.persona) {
-      const p = dniSearchQuery.data.persona;
-      setNombre(p.nombre || '');
-      setApellido(p.apellido || '');
-      setEmail(p.email || '');
-      setTelefono(p.telefono || '');
-      setIsExistingPerson(true);
-      setExistingPersonaData(p);
-    } else if (dniSearchQuery.data && !dniSearchQuery.data.existe) {
-      setIsExistingPerson(false);
-      setExistingPersonaData(null);
-    }
+    const syncTimeout = setTimeout(() => {
+      if (dniSearchQuery.data?.existe && dniSearchQuery.data.persona) {
+        const p = dniSearchQuery.data.persona;
+        setNombre(p.nombre || '');
+        setApellido(p.apellido || '');
+        setEmail(p.email || '');
+        setTelefono(p.telefono || '');
+        setIsExistingPerson(true);
+        setExistingPersonaData(p);
+      } else if (dniSearchQuery.data && !dniSearchQuery.data.existe) {
+        setIsExistingPerson(false);
+        setExistingPersonaData(null);
+      }
+    }, 0);
+
+    return () => clearTimeout(syncTimeout);
   }, [dniSearchQuery.data]);
 
   // Mutación: Abrir Caja

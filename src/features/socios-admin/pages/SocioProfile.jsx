@@ -3,10 +3,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { tokens } from '../../../theme/tokens';
 import { useSocioProfile360 } from '../hooks/useSocioProfile360';
 import { SocioProfileHeader } from '../components/SocioProfileHeader';
@@ -78,7 +78,7 @@ export const SocioProfile = ({
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeContainer}>
       {toastMessage && (
         <View style={styles.toast}>
           <CheckCircle2 size={16} color={tokens.colors.primary[400]} />
